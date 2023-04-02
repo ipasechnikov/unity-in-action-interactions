@@ -41,6 +41,18 @@ public class InventoryManager : MonoBehaviour, IGameManager
         DisplayItems();
     }
 
+    public List<string> GetItemList()
+    {
+        return new List<string>(items.Keys);
+    }
+
+    public int GetItemCount(string name)
+    {
+        items.TryGetValue(name, out var count);
+        return count;
+            
+    }
+
     // Start is called before the first frame update
     void Start()
     {
