@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeviceTrigger : MonoBehaviour
 {
     [SerializeField] GameObject[] targets;
+    [SerializeField] bool requiredKey;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,9 @@ public class DeviceTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (requiredKey && Managers.Inventory.EquippedItem != "key")
+            return;
+
         foreach (var target in targets)
             target.SendMessage("Activate");
     }

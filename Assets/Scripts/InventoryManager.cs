@@ -13,6 +13,11 @@ public class InventoryManager : MonoBehaviour, IGameManager
         get; private set;
     }
 
+    public string EquippedItem
+    {
+        get; private set;
+    }
+
     public void Startup()
     {
         Debug.Log("Invetory manager starting...");
@@ -49,9 +54,24 @@ public class InventoryManager : MonoBehaviour, IGameManager
     public int GetItemCount(string name)
     {
         items.TryGetValue(name, out var count);
-        return count;
-            
+        return count;        
     }
+
+    public bool EquipItem(string name)
+    {
+        if (items.ContainsKey(name) && EquippedItem != name)
+        {
+            EquippedItem = name;
+            Debug.Log($"Equipped {name}");
+            return true;
+        }
+
+        EquippedItem = null;
+        Debug.Log("Unequipped");
+        return false;
+    }
+
+
 
     // Start is called before the first frame update
     void Start()

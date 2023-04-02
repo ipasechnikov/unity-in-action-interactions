@@ -40,5 +40,31 @@ public class BasicUI : MonoBehaviour
             // Shift sideways each time through the loop
             posX += width + buffer;
         }
+
+        var equipped = Managers.Inventory.EquippedItem;
+        if (equipped != null)
+        {
+            posX = Screen.width - (width + buffer);
+            var image = Resources.Load<Texture2D>($"Icons/{equipped}");
+            GUI.Box(
+                new Rect(posX, posY, width, height),
+                new GUIContent("Equipped", image)
+            );
+        }
+
+        posX = 10;
+        posY += height + buffer;
+
+        foreach (var item in itemList)
+        {
+            var buttonClicked = GUI.Button(
+                new Rect(posX, posY, width, height), $"Equip {item}"
+            );
+
+            if (buttonClicked)
+                Managers.Inventory.EquipItem(item);
+
+            posX += width + buffer;
+        }
     }
 }
