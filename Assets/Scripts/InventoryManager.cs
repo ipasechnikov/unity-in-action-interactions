@@ -71,7 +71,24 @@ public class InventoryManager : MonoBehaviour, IGameManager
         return false;
     }
 
+    public bool ConsumeItem(string name)
+    {
+        if (!items.TryGetValue(name, out var count))
+        {
+            Debug.Log($"Cannot consume {name}");
+            return false;
+        }
 
+        count--;
+        if (count == 0)
+            items.Remove(name);
+        else
+            items[name] = count;
+
+        DisplayItems();
+        return true;
+
+    }
 
     // Start is called before the first frame update
     void Start()

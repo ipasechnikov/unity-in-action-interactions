@@ -64,6 +64,19 @@ public class BasicUI : MonoBehaviour
             if (buttonClicked)
                 Managers.Inventory.EquipItem(item);
 
+            if (item == "health")
+            {
+                var healthButton = GUI.Button(
+                    new Rect(posX, posY + height + buffer, width, height), "Use Health"
+                );
+
+                if (healthButton)
+                {
+                    Managers.Inventory.ConsumeItem(item);
+                    Managers.Player.ChangeHealth(25);
+                }
+            }
+
             posX += width + buffer;
         }
     }
